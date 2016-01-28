@@ -11,11 +11,11 @@
 
 \usepackage{url}
 \urldef{\mailsa}\path|d11668@alunos.uevora.pt|    
-%\urldef{\mailsb}\path|tcg@uevora.pt|
+\urldef{\mailsb}\path|tcg@uevora.pt|
 
 \begin{document}
 \title{Age and Gender Classification\\
-of Tweets using Support Vector Machines}
+of English Tweets using Support Vector Machines}
 %\\Information Retrieval for Text Bases
 \titlerunning{}
 \author{Roy Khristopher Bayot\\Teresa Gonçalves, PhD}
@@ -26,7 +26,7 @@ Rua Romão Ramalho nº59, 7000-671 Évora, Portugal\\
 
 \maketitle
 \begin{abstract}
-% Author profiling from twitter data was done in this paper. It explores 4 different languages - English, Dutch, Italian, and Spanish. Minimal preprocessing was done before exploring the use of different features - tfidf, normalized term frequency, ngrams, and ngrams of POS tags. SVM was used with a linear kernel and C to be chosen as 1, which is the default. Results showed that tfidf still gives the best results for classification/regression for most tasks.
+Author profiling from twitter data was done in this paper. It focuses on English language and specifically age and gender classification. The individual effects of bag of words, text ngrams, and POS ngrams on the classification were explored and different SVM kernels and parameters were also tested. Finally, the study was able to achieve 80.92\% and 80.79\% for age and gender respectively using only~\textit{tfidf} and different SVM kernels. 
 \keywords{author profiling, twitter, tfidf, normalized term frequency, SVM, POS, ngrams}
 \end{abstract}
 
@@ -35,9 +35,11 @@ Author profiling has been of importance in the recent years. From a forensic sta
 
 Part of the reason why the interest in author profiling grows is because the growth of the internet where text is one of the main forms of communication. Through this growth, various corpora could be extracted, curated, assembled from different sources such as blogs, websites, customer reviews, and even twitter posts. Of course, this presents some problems. For example, people from different countries who use the same online platform such as Twitter or Blogger could behave differently in terms of text usage. This presents a difficulty in profiling. This work tries to take this difficulty into account by studying which kind of features are useful for different languages. 
 
-The aim of this work is to investigate age and gender classification of tweets using Support Vector Machines using the dataset given in PAN 2015~\cite{rangel:2015}. The dataset contains twitter data from 4 different languages - English, Dutch, Italian, and Spanish. These tweets are used to profile an author based on age, gender, and 5 personality traits - agreeability, conscientiousness, extrovertedness, openness, and stability. This paper limits the investigation to age and gender classification for English tweets.   
+The aim of this work is to investigate age and gender classification of tweets using Support Vector Machines~\cite{cortes1995support} using the dataset given in PAN 2015~\cite{rangel:2015}. The dataset contains twitter data from 4 different languages - English, Dutch, Italian, and Spanish. These tweets are used to profile an author based on age, gender, and 5 personality traits - agreeability, conscientiousness, extrovertedness, openness, and stability. This paper limits the investigation to age and gender classification for English tweets.   
 
-This works starts off with an investigation of the different features that could be useful in classification in English. We investigate three different sets of features. The first set is the bag of words features in the form of term frequency and term frequency inverse document frequency. The second set are text ngrams. And finally, we also study part of speech ngrams to see if information extracted from these features are useful for characterizing twitter users. After determining which features are useful in classification, this work then proceeds to evaluating different kernels as well as different parameters for classification.
+This works starts off with an investigation of the different features that could be useful in classification in English. We investigate three different sets of features. The first set is the bag of words features in the form of term frequency and term frequency inverse document frequency. The second set are text ngrams. And finally, we also study part of speech ngrams to see if information extracted from these features are useful for characterizing twitter users. After determining which features are useful in classification, we then proceed to reduce the number of features that could be used to evaluate, and then experimented on different kernels as well as different parameters for classification.
+
+Finally, we also check different for three other methods. First, we want to know if additional preprocessing would affect the results. This was done by substituting strings such as hyperlinks and hashtags into " hashtag\_here " and " link\_here ". Second, we want to know if information on the other class affects the classification. Lastly, we want to know if ensemble methods affect the result. Experiments were made to check for these objectives. These will be described in the succeeding sections. 
 
 %Finally, initial work on the other languages are also presented. This involves determining which feature types are useful for classification. Parameter tuning and exploration of the different kernels is left for further investigation.
 
@@ -62,12 +64,9 @@ On the other hand, the work of Santosh et al. in~\cite{santosh2013author} gave a
 
 In PAN 2014~\cite{rangel2014overview}, the task was profiling authors with text from four different sources - social media, twitter, blogs, and hotel reviews. Most of the approaches used in this edition are similar to the previous year. In~\cite{lopezusing}, the method used to represent terms in a space of profiles and then represent the documents in the space of profiles and subprofiles were built using expectation maximization clustering. This is the same method as in the previous year in~\cite{lopez2013inaoe}. In~\cite{maharjansimple}, ngrams were used with stopwords, punctuations, and emoticons retained, and then idf count was also used before placed into a classifier. Liblinear logistic regression returned with the best result. In~\cite{weren6exploring}, different features were used that were related to length (number of characters, words, sentences), information retrieval (cosine similarity, okapi BM25), and readability (Flesch-Kincaid readability, correctness, style). Another approach is to use term vector model representation as in~\cite{villenadaedalus}. For the work of Marquardt et al. in~\cite{marquardt2014age}, they used a combination of content-based features (MRC, LIWC, sentiments) and stylistic features (readability, html tags, spelling and grammatical error, emoticons, total number of posts, number of capitalized letters number of capitalized words). Classifiers also varied for this edition. There was the use of logistic regression, multinomial Naïve Bayes, liblinear, random forests, Support Vector Machines, and decision tables. The method of Lopez-Monroy in~\cite{lopezusing} gave the best result with an average accuracy of 28.95\% on all corpus-types and languages. 
 \section{Dataset and Tools}
-The dataset for the problem at hand is composed of a set of tweets for 4 different languages - English, Dutch, Italian, and Spanish. It was decided to build one model for age classification and another model for gender classification. There were 4 categories for the age classification - 18-24, 25-34, 35-49, and 50 and above but for Dutch and Italian, age classification is not possible because there was no data given.
+The dataset for the problem at hand is composed of a set of tweets for 4 different languages - English, Dutch, Italian, and Spanish. We limited the investigation to just English and decided to build one model for age classification and another model for gender classification. There were 4 categories for the age classification - 18-24, 25-34, 35-49, and 50 and above.
 
-The number of given users varies for each language. There were 152 users for English, 34 for Dutch, 38 for Italian, and 100 for Spanish. Each user has different number of tweets. The dataset is balanced based on gender. 
-
-
-Looking at English tweets, the table~\ref{table:TweetStats} gives the characteristics of this particular section of the dataset.
+There were 152 users for English. Each user has different number of tweets but the dataset is balanced based on gender. Looking at English tweets, the table~\ref{table:TweetStats} gives the characteristics of this particular section of the dataset.
 
 \begin{table}[!htbp]
 \centering
@@ -86,11 +85,11 @@ Looking at the number of tweets per user, we can see that the minimum is 32 twee
 
 Processing the data was done through Python using the scikits-learn~\cite{scikit-learn} library. For POS tags, TreeTagger as described in~\cite{schmid1994probabilistic} was used with a python wrapper.
 \section{Methodology}
-For this study there were three sets of features that were placed under study - bag-of-words features, text ngrams, and  part of speech tags. The same approach was used for all the tasks which was more or less straightforward: feature extraction, then use the features for classification using a Support Vector Machine with a linear classifier and a default $c$ value of 1, and then evaluate this through a 10 fold cross validation. Cross validation accuracies are compared to one another using the Wilcoxon signed rank test~\cite{wilcoxon1945individual} to determine if the differences between the accuracies are statistically significant. 
+The same approach was used for all the tasks which was more or less straightforward. First, there is preprocessing. Then we do feature extraction. For this study there were three sets of features that were placed under study - bag-of-words features, text ngrams, and  part of speech tags. Then we perform feature selection and then feature reduction. After reducing the number of features, we then experimented on different Support Vector Machine kernels and parameters. Furthermore, we also checked if more preprocessing or information on the other class gives a better result. We also checked if ensemble methods gives better results. The succeeding sections explain how each step is done in detail. 
 
-The Wilcoxon signed rank test~\cite{wilcoxon1945individual} allows the comparison between two experiments done on the same data set without making any assumptions on the distributions from which the set is drawn. A confidence interval of 95\% was used. Therefore, if there was an experiment between two settings and the returned p-value after a Wilcoxon signed rank test yields less than 0.05, the null hypothesis is rejected. This means that the values are statistically different. If it yields a value greater than 0.05, it means that values between the two experiments are not statistically different.
 
-After determining which features are the most useful, we then reduce the number of features by ranking the importance through information gain. We determine the number the most number of features that gives an accuracy that is not statistically different from the accuracy given by the full number of features using Wilcoxon signed rank test~\cite{wilcoxon1945individual}. We then use that reduced number of features to test the different kernels and different parameters. 
+
+
 \subsection{Preprocessing}
 For each language, xml files from each user are read. Then the tweets taken from each user are extracted and concatenated into one line to form one training example. The examples are then transformed by putting them all in lower case. No stop words are removed. Hashtags, numbers, mentions, shares, and retweets were not processed or transformed to anything else. They were retained as is and therefore will correspond to another item in the dictionary of features. The resulting file is used for feature extraction.  The resulting file is used for feature extraction.  
 
@@ -114,16 +113,29 @@ Part of speech tags were also another set of features that was examined in this 
 \hline
         & tf    & tfidf & Text  bi & Text tri & POS uni & POS bi \\ \hline
 English & 26264 & 26264 & 104435   & 147577   & 35      & 895    \\ \hline
-Dutch   & 8569  & 8569  & 29648    & 39286    & 39      & 792    \\ \hline
-Italian & 12590 & 12590 & 36002    & 44051    & 38      & 443    \\ \hline
-Spanish & 24688 & 24688 & 87313    & 122130   & 68      & 1999   \\ \hline
+%Dutch   & 8569  & 8569  & 29648    & 39286    & 39      & 792    \\ \hline
+%Italian & 12590 & 12590 & 36002    & 44051    & 38      & 443    \\ \hline
+%Spanish & 24688 & 24688 & 87313    & 122130   & 68      & 1999   \\ \hline
 \end{tabular}
 \caption{Number of features extracted}
 \label{table:numFeatures}
 \end{table}
 
+\subsection{Feature Selection}
+
+We classify the tweets using the different features extracted. We used a Support Vector Machine with a linear classifier and a default $c$ value of 1, and then evaluate this through a 10 fold cross validation. We compare the cross validation accuracies within each type - term frequency against~\textit{tfidf}, text bigrams against text trigrams, and POS unigrams against POS bigrams, POS unigrams against the combination of POS bigrams and unigrams, and finally POS bigrams against the combination of POS bigrams and unigrams. The comparison is done by noting which gives the better accuracy and if the difference is statistically significant. Wilcoxon signed rank test~\cite{wilcoxon1945individual} is used to determine if the differences between the accuracies are statistically significant. 
+
+
+It was used among the other tests because it allows the comparison between two experiments done on the same data set without making any assumptions on the distributions from which the set is drawn. A confidence interval of 95\% was used. Therefore, if there was an experiment between two settings and the returned p-value after a Wilcoxon signed rank test yields less than 0.05, the null hypothesis is rejected. This means that the values are statistically different. If it yields a value greater than 0.05, it means that values between the two experiments are not statistically different.
+
+
+
 \subsection{Feature Reduction}
-After extracting~\textit{tfidf} features, we want to reduce the number of features in the text. To do that, classification was done using Support Vector Machines~\cite{cortes1995support} with a linear kernel, choosing C=1 as the default. But instead of using all the~\textit{tfidf} features, different number of features were tested. The number of features were ranked by either information gain or gain ratio. The results for the accuracies by varying the feature set is given in table~\ref{table:ChoosingNumFeatures} in the succeeding chapter. However, it is suffice to say that for the succeeding experiment on polynomial kernels and radial basis function kernels, the number of features selected will be 9000 and 7000 for age and gender classification respectively. The discussion on selecting the number of features is given in the succeeding chapter. 
+After determining which features are the most useful, which is~\textit{tfidf} from the experiment results as given in tables~\ref{table:DiffFeaturesResults} and~\ref{table:PValDiffFeaturesResults}, we then reduce the number of features by ranking the importance through information gain. To do that, classification was done using Support Vector Machines~\cite{cortes1995support} with a linear kernel, choosing C=1 as the default. But instead of using all the~\textit{tfidf} features, different number of features were tested. The number of features were ranked by either information gain or gain ratio. The results for the accuracies by varying the feature set is given in table~\ref{table:ChoosingNumFeatures} in the succeeding chapter. However, it is suffice to say that for the succeeding experiment on polynomial kernels and radial basis function kernels, the number of features selected will be 9000 and 7000 for age and gender classification respectively. The discussion on selecting the number of features is given in the succeeding chapter. 
+
+%We determine the number the most number of features that gives an accuracy that is not statistically different from the accuracy given by the full number of features using Wilcoxon signed rank test~\cite{wilcoxon1945individual}. We then use that reduced number of features to test the different kernels and different parameters. 
+
+
 
 \subsection{Parameter Tuning}
 Using Support Vector Machines~\cite{cortes1995support} entails the use of kernels that maps the features into a different space such that separation would be done in the new space. In the earlier section, only the linear kernel was used but we further used polynomial kernels and radial basis function kernels. Polynomial kernels maps the input features to another feature space that uses the polynomial function over the similarity of the input features. Mathematically, the kernel is given by equation~\ref{eqn:poly-kernel-math} but scikits-learn implementation has a gamma to scale the dot product as in equation~\ref{eqn:poly-kernel-scikit}.
@@ -164,7 +176,7 @@ Adaptive Boosting or AdaBoost is another ensemble method formulated by Freund an
 
 \section{Results and Discussion}
 \subsection{Evaluating the Effect of Feature Types on Classification}
-
+The numbers in boldface in table~\ref{table:DiffFeaturesResults} give the feature that gave a better accuracy result in a given type. We can see that~\textit{tfidf} gives a better accuracy than termed frequency among the bag of words features. We also see that text bigrams gives a better accuracy than text trigrams and POS bigrams give a better accuracy than the two others. Of course~\textit{tfidf} has the highest accuracy among all. 
 
 
 
@@ -182,6 +194,7 @@ average                                 & 0.453  & \textbf{0.687}  & \textbf{0.6
 \label{table:DiffFeaturesResults}
 \end{table}
 
+However, looking at the p-values in table~\ref{table:PValDiffFeaturesResults}, we can see a different story. The values in boldface are those less than 0.05 and are therefore and indicator that the perceived accuracy are statistically different from the others. In this case, the accuracy results from~\textit{tfidf} are statistically different from normalized term frequency. However, those from text ngrams and POS ngrams are not statistically different from each other. 
 
 \begin{table}[!htbp]
 \centering
@@ -196,8 +209,10 @@ average                                 & 0.453  & \textbf{0.687}  & \textbf{0.6
 validation accuracies between among bag of words features, text ngrams features, and among POS ngrams features.}
 \label{table:PValDiffFeaturesResults}
 \end{table}
-\subsection{Feature Selection}
-The results for feature selection are given in table~\ref{table:ChoosingNumFeatures}. The highest accuracy could be attained when using all the different features. However, Wilcoxon signed rank test~\cite{wilcoxon1945individual} was done between the experiment with the highest accuracy and other subsequent experiments within each task and each ranking function. For example, in age classification, information gain features were used and the experiment that used 26263 features was compared to the other experiment that used 10000, 9000, and so on. The numbers in boldface are those which are not statistically different from each other. Therefore, for further experiments, 9000 features were used for classification while 7000 features were used for gender classfication. Information gain ranking was used instead of gain ratio because the words given by information gain were subjectively more descriptive than those given by gain ratio. 
+\subsection{Feature Reduction}
+We then chose to just use~\textit{tfidf} as the set of features for classification. However, the set is still big. And we reduced this even further by ranking the features by information gain and gain ratio and try to reduce the feature set from there.  
+
+The results for feature reduction are given in table~\ref{table:ChoosingNumFeatures}. The highest accuracy could be attained when using all the different features. However, Wilcoxon signed rank test~\cite{wilcoxon1945individual} was done between the experiment with the highest accuracy and other subsequent experiments within each task and each ranking function. For example, in age classification, information gain features were used and the experiment that used 26263 features was compared to the other experiment that used 10000, 9000, and so on. The numbers in boldface are those which are not statistically different from each other. Therefore, for further experiments, 9000 features were used for classification while 7000 features were used for gender classfication. Information gain ranking was used instead of gain ratio because the words given by information gain were subjectively more descriptive than those given by gain ratio. 
 
 \begin{table}[!htbp]
 \centering
@@ -296,8 +311,8 @@ Comparing the two different kernels for gender classification including differen
 
 \begin{table}[!htbp]
 \centering
-\setlength{\tabcolsep}{6pt}
-\setlength{\extrarowheight}{5pt}
+%\setlength{\tabcolsep}{6pt}
+%\setlength{\extrarowheight}{5pt}
 \begin{tabular}{|c|c|c|c|c|c|c|c|}
 \hline
 \multirow{2}{*}{C} & \multicolumn{7}{c|}{gamma}                                            \\ \cline{2-8} 
@@ -401,9 +416,9 @@ n-estimators & Age    & Gender \\ \hline
 
 
 \section{Conclusion and Recommendation}
-There are various conclusions that could be found from the results. First, we can conclude that using minimal preprocessing, using the top 9000 features as ranked by information gain for age classification would yield the same results as using all the different features, from a statistical standpoint. This also goes true for gender classification but with the top 7000 features. Second, looking into the differences in kernel functions, the results show that the highest accuracy that could be achieved were 80.92\% and 80.79\% for age and gender respectively. These accuracies could be attained could from either polynomial kernels or radial basis function kernels. For instance, for age classification, the highest accuracy could either be obtained with a polynomial kernel with degree 3 and C to be 10 or it could also be a through a radial basis function with gamma to be 0.001 and C to be 10000. For gender classification, the similarity exists as well. A polynomial kernel could be used with the second degree and C to be 10000 and it will yield the same accuracy as the one with a radial basis function with gamma to be 0.01 and and C to be 10000. For the purposes of our next experiments, we fixed the parameters such that for age classification, we an SVM with polynomial kernel with degree to be 3 and $C$ to be 10, while for gender classification, we use a radial basis function kernel with gamma to be 1 and $C$ to be 10. Third, looking into features that are specific to twitter data, we see that substituting a hyperlinks and hashtags lower the accuracy as compared to the best among the previous experiments, although they arent statistically different. Fourth, we can also see that using information given by another class does not improve the classification results. Finally, results from ensemble methods are not statistically different from each other and accuracy results are lower than the others. 
+There are numerous conclusions that could be found from the results. First, we observed that~\textit{tfidf} performed best among the different types of features. Second, we can conclude that using minimal preprocessing, using the top 9000 features as ranked by information gain for age classification would yield the same results as using all the different features, from a statistical standpoint. This also goes true for gender classification but with the top 7000 features. Third, looking into the differences in kernel functions, the results show that the highest accuracy that could be achieved were 80.92\% and 80.79\% for age and gender respectively. These accuracies could be attained could from either polynomial kernels or radial basis function kernels. For instance, for age classification, the highest accuracy could either be obtained with a polynomial kernel with degree 3 and C to be 10 or it could also be a through a radial basis function with gamma to be 0.001 and C to be 10000. For gender classification, the similarity exists as well. A polynomial kernel could be used with the second degree and C to be 10000 and it will yield the same accuracy as the one with a radial basis function with gamma to be 0.01 and and C to be 10000. For the purposes of our next experiments, we fixed the parameters such that for age classification, we an SVM with polynomial kernel with degree to be 3 and $C$ to be 10, while for gender classification, we use a radial basis function kernel with gamma to be 1 and $C$ to be 10. Fourth, looking into features that are specific to twitter data, we see that substituting a hyperlinks and hashtags lower the accuracy as compared to the best among the previous experiments, although they arent statistically different. Fifth, we can also see that using information given by another class does not improve the classification results. Finally, results from ensemble methods are not statistically different from each other and accuracy results are lower than the others. However, on this front, there are still a lot of things to consider such as number of estimators or even the estimator type and this is definitely something to consider for future work.  
 
-For future work, it should be noted that the current features are very minimal. The preprocessing is minimal. The features are~\textit{tfidf} ranked by information gain. For twitter specific features, only the hashtags, user mentions, and hyperlinks were identified and checked. It would be better if other features specific to twitter could be incorporated. Examples of such would be emoticons and character flooding. Experiments with character ngrams is also another direction to check. 
+For more future work, it should be noted that the current features are very minimal. The preprocessing is minimal. The features are~\textit{tfidf} ranked by information gain. For twitter specific features, only the hashtags, user mentions, and hyperlinks were identified and checked. It would be better if other features specific to twitter could be incorporated. Examples of such would be emoticons and character flooding. Experiments with character ngrams is also another direction to check. 
 
 
 
