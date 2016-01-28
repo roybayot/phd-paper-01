@@ -1,0 +1,106 @@
+\relax 
+\providecommand{\transparent@use}[1]{}
+\citation{rangel:2015}
+\@writefile{toc}{\contentsline {title}{Age and Gender Classification\unskip \ \ignorespaces  of Tweets using Support Vector Machines}{1}}
+\@writefile{toc}{\authcount {1}}
+\@writefile{toc}{\contentsline {author}{Roy Khristopher Bayot\unskip \ \ignorespaces Teresa Gon\IeC {\c c}alves, PhD}{1}}
+\@writefile{toc}{\contentsline {section}{\numberline {1}Introduction}{1}}
+\citation{argamon2009automatically}
+\citation{schler2006effects}
+\citation{argamon2009automatically}
+\citation{rangel2013overview}
+\@writefile{toc}{\contentsline {section}{\numberline {2}Related Literature}{2}}
+\citation{lopez2013inaoe}
+\citation{meina2013ensemble}
+\citation{santosh2013author}
+\citation{rangel2014overview}
+\citation{lopezusing}
+\citation{lopez2013inaoe}
+\citation{maharjansimple}
+\citation{weren6exploring}
+\citation{villenadaedalus}
+\citation{marquardt2014age}
+\citation{lopezusing}
+\@writefile{toc}{\contentsline {section}{\numberline {3}Dataset and Tools}{4}}
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Various statistics on twitter data.}}{4}}
+\newlabel{table:TweetStats}{{1}{4}}
+\citation{scikit-learn}
+\citation{schmid1994probabilistic}
+\citation{wilcoxon1945individual}
+\citation{wilcoxon1945individual}
+\citation{wilcoxon1945individual}
+\@writefile{toc}{\contentsline {section}{\numberline {4}Methodology}{5}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Preprocessing}{5}}
+\citation{schmid1994probabilistic}
+\citation{cortes1995support}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Feature Extraction}{6}}
+\@writefile{toc}{\contentsline {subsubsection}{Bag-of-Words}{6}}
+\@writefile{toc}{\contentsline {subsubsection}{Text Ngrams}{6}}
+\@writefile{toc}{\contentsline {subsubsection}{POS Ngrams}{6}}
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Number of features extracted}}{6}}
+\newlabel{table:numFeatures}{{2}{6}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3}Feature Reduction}{6}}
+\citation{cortes1995support}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.4}Parameter Tuning}{7}}
+\newlabel{eqn:poly-kernel-math}{{1}{7}}
+\newlabel{eqn:poly-kernel-scikit}{{2}{7}}
+\newlabel{eqn:rbf-kernel-math}{{3}{7}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.5}Classification with string substitution}{7}}
+\citation{breiman2001random}
+\citation{freund1997decision}
+\citation{wilcoxon1945individual}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.6}Using Information of the Other Class as a Feature}{8}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.7}Exploring Ensemble Methods}{8}}
+\@writefile{toc}{\contentsline {section}{\numberline {5}Results and Discussion}{8}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.1}Evaluating the Effect of Feature Types on Classification}{8}}
+\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Accuracy results for age and gender classification using different types of features. Highest accuracy is given in bold face.}}{8}}
+\newlabel{table:DiffFeaturesResults}{{3}{8}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}Feature Selection}{8}}
+\citation{wilcoxon1945individual}
+\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces Table of p-values using Wilcoxon signed rank analysis when comparing cross validation accuracies between among bag of words features, text ngrams features, and among POS ngrams features.}}{9}}
+\newlabel{table:PValDiffFeaturesResults}{{4}{9}}
+\@writefile{lot}{\contentsline {table}{\numberline {5}{\ignorespaces Accuracies that result from using different number of important features ranked by information gain and gain ratio. SVM linear kernel with C=1 was used.}}{9}}
+\newlabel{table:ChoosingNumFeatures}{{5}{9}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.3}Different Kernels}{9}}
+\@writefile{lot}{\contentsline {table}{\numberline {6}{\ignorespaces Accuracy results of using SVM with polynomial kernel on age classication task with different C and degree parameters using top 9000 informative features ranked by information gain.}}{10}}
+\newlabel{table:SVMPolyAge}{{6}{10}}
+\@writefile{lot}{\contentsline {table}{\numberline {7}{\ignorespaces Accuracy results of using SVM with radial basis function kernel for age classification with different C and gamma parameters using top 9000 informative features ranked by information gain.}}{10}}
+\newlabel{table:SVMRBFAge}{{7}{10}}
+\citation{wilcoxon1945individual}
+\@writefile{lot}{\contentsline {table}{\numberline {8}{\ignorespaces Accuracy results of using SVM with polynomial kernel for gender classification with different C and degree parameters using the top 7000 informative features ranked by information gain.}}{11}}
+\newlabel{table:SVMPolyGender}{{8}{11}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.4}String Substitution}{11}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.5}Using Information from Other Class}{11}}
+\@writefile{lot}{\contentsline {table}{\numberline {9}{\ignorespaces Accuracy results of using SVM with radial basis function kernel for gender classification with different C and gamma parameters using the top 7000 informative features ranked by information gain.}}{12}}
+\newlabel{table:SVMRBFGender}{{9}{12}}
+\@writefile{lot}{\contentsline {table}{\numberline {10}{\ignorespaces Comparison between the best accuracy for age and gender classification from previous experiments against a classifier trained with links and hashtags string substitution.}}{12}}
+\newlabel{table:StringSub}{{10}{12}}
+\@writefile{lot}{\contentsline {table}{\numberline {11}{\ignorespaces Comparison between the best accuracy for age and gender classification from previous experiments against a classifier trained with a feature set added with the information of the other class.}}{12}}
+\newlabel{table:WithPriors}{{11}{12}}
+\citation{wilcoxon1945individual}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.6}Ensemble Methods}{13}}
+\@writefile{lot}{\contentsline {table}{\numberline {12}{\ignorespaces Accuracy results for age and gender classification using forests of randomized trees.}}{13}}
+\newlabel{table:RandomForests}{{12}{13}}
+\@writefile{lot}{\contentsline {table}{\numberline {13}{\ignorespaces Accuracy results for age and gender classification using AdaBoost.}}{13}}
+\newlabel{table:AdaBoost}{{13}{13}}
+\@writefile{toc}{\contentsline {section}{\numberline {6}Conclusion and Recommendation}{13}}
+\bibstyle{plain}
+\bibdata{citations}
+\bibcite{argamon2009automatically}{1}
+\bibcite{breiman2001random}{2}
+\bibcite{cortes1995support}{3}
+\bibcite{freund1997decision}{4}
+\bibcite{lopezusing}{5}
+\bibcite{lopez2013inaoe}{6}
+\bibcite{maharjansimple}{7}
+\bibcite{marquardt2014age}{8}
+\bibcite{meina2013ensemble}{9}
+\bibcite{scikit-learn}{10}
+\bibcite{rangel2014overview}{11}
+\bibcite{rangel2013overview}{12}
+\bibcite{rangel:2015}{13}
+\bibcite{santosh2013author}{14}
+\bibcite{schler2006effects}{15}
+\bibcite{villenadaedalus}{16}
+\bibcite{weren6exploring}{17}
+\bibcite{wilcoxon1945individual}{18}
