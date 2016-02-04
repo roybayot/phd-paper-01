@@ -88,6 +88,12 @@ Jonathan Schler, Moshe Koppel, Shlomo Argamon, and James~W Pennebaker.
 \newblock In {\em AAAI Spring Symposium: Computational Approaches to Analyzing
   Weblogs}, volume~6, pages 199--205, 2006.
 
+\bibitem{schmid1994probabilistic}
+Helmut Schmid.
+\newblock Probabilistic part-of-speech tagging using decision trees.
+\newblock In {\em Proceedings of the international conference on new methods in
+  language processing}, volume~12, pages 44--49. Citeseer, 1994.
+
 \bibitem{villenadaedalus}
 Julio Villena-Rom{\'a}n and Jos{\'e}~Carlos Gonz{\'a}lez-Crist{\'o}bal.
 \newblock Daedalus at pan 2014: Guessing tweet author's gender and age.
