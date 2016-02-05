@@ -21,7 +21,7 @@ of English Tweets using Support Vector Machines}
 \author{Roy Khristopher Bayot\\Teresa Gonçalves, PhD}
 \institute{Universidade de Évora, Department of Informatics,\\
 Rua Romão Ramalho nº59, 7000-671 Évora, Portugal\\
-\mailsa%, \mailsb
+\mailsa, \mailsb
 }
 
 \maketitle
@@ -31,9 +31,9 @@ Author profiling from twitter data was done in this paper. It focuses on English
 \end{abstract}
 
 \section{Introduction}
-Author profiling has been of importance in the recent years. From a forensic standpoint for example, it could be used to determine potential suspects by getting linguistic profiles and identifying characteristics. From a business intelligence perspective, companies could target specific people through online advertising. By knowing the profile of the authors, companies would easily find what a specific group of people talk about online and device strategies to advertise to these people. They could also analyze product reviews and know what types of products are liked or disliked by certain people. 
+%Author profiling has been of importance in the recent years. From a forensic standpoint for example, it could be used to determine potential suspects by getting linguistic profiles and identifying characteristics. From a business intelligence perspective, companies could target specific people through online advertising. By knowing the profile of the authors, companies would easily find what a specific group of people talk about online and device strategies to advertise to these people. They could also analyze product reviews and know what types of products are liked or disliked by certain people. 
 
-Part of the reason why the interest in author profiling grows is because the growth of the internet where text is one of the main forms of communication. Through this growth, various corpora could be extracted, curated, assembled from different sources such as blogs, websites, customer reviews, and even twitter posts. Of course, this presents some problems. For example, people from different countries who use the same online platform such as Twitter or Blogger could behave differently in terms of text usage. This presents a difficulty in profiling. This work tries to take this difficulty into account by studying which kind of features are useful for different languages. 
+%Part of the reason why the interest in author profiling grows is because the growth of the internet where text is one of the main forms of communication. Through this growth, various corpora could be extracted, curated, assembled from different sources such as blogs, websites, customer reviews, and even twitter posts. Of course, this presents some problems. For example, people from different countries who use the same online platform such as Twitter or Blogger could behave differently in terms of text usage. This presents a difficulty in profiling. This work tries to take this difficulty into account by studying which kind of features are useful for different languages. 
 
 The aim of this work is to investigate age and gender classification of tweets using Support Vector Machines~\cite{cortes1995support} using the dataset given in PAN 2015~\cite{rangel:2015}. The dataset contains twitter data from 4 different languages - English, Dutch, Italian, and Spanish. These tweets are used to profile an author based on age, gender, and 5 personality traits - agreeability, conscientiousness, extrovertedness, openness, and stability. This paper limits the investigation to age and gender classification for English tweets.   
 
@@ -42,29 +42,39 @@ The aim of this work is to investigate age and gender classification of tweets u
 %Finally, initial work on the other languages are also presented. This involves determining which feature types are useful for classification. Parameter tuning and exploration of the different kernels is left for further investigation.
 
 \section{Related Literature}
-One of the first few works on author profiling is that of Argamon et al. in~\cite{argamon2009automatically} where texts are categorized base on gender, age, native language, and personality. For personality, only neuroticism was checked. The corpus comes from different sources. The age and gender have the same corpus taken from blog postings. The native language corpus was taken from International Corpus of Learner English. Personality was taken from essays of pyschology students from University of Texas in Austin. Two types of features were obtained: content-based features and style-based features and Bayesian Multinomial Regression was used as a classifier. Bayesian Multinomial Regression was used because it was shown to be effective for text classification problems. It's a variant of logistic regression that is used instead of naive bayes classifiers because it doesnt assume independence between features.
+One of the first few works on author profiling is that of Argamon et al. in~\cite{argamon2009automatically} where texts are categorized base on gender, age, native language, and personality. For personality, only neuroticism was checked. The corpus comes from different sources. The age and gender have the same corpus taken from blog postings. The native language corpus was taken from International Corpus of Learner English. Personality was taken from essays of pyschology students from University of Texas in Austin. Two types of features were obtained: content-based features and style-based features and Bayesian Multinomial Regression was used as a classifier. Argamon et al. had some interesting results where from the gender task, they were able to achieve 76.1\% accuracy using style and content features. For age task with 3 classes, the accuracy was at 77.7\% also using style and content features. For the native language task, the classifiers were able to achieve 82.3\% using only content features. And finally, in checking for neuroticism, the highest obtained was 65.7\% using only style features. 
 
-Argamon et al. had some interesting results where from the gender task, they were able to achieve 76.1\% accuracy using style and content features. For age task with 3 classes, the accuracy was at 77.7\% also using style and content features. For the native language task, the classifiers were able to achieve 82.3\% using only content features. And finally, in checking for neuroticism, the highest obtained was 65.7\% using only style features. 
+There has also been some research that uses datasets collected from social media. A particular example is that of Schler et al. in~\cite{schler2006effects} where writing styles in blogs are related to age and gender. Stylistic and content features were extracted from 71,000 different blogs and a Multi-Class Real Winnow was used to learn the models to classify the blogs. Stylistic features included parts-of-speech tags, function words, hyperlinks, and non-dictionary words. Content features included word unigrams with high information gain. The accuracy achieved was around 80\% for gender classification and 75\% for age identification.  
 
-There has also been some research that uses datasets collected from social media. A particular example is that of Schler et al. in~\cite{schler2006effects} where writing styles in blogs are related to age and gender. Stylistic and content features were extracted from 71,000 different blogs and a Multi-Class Real Winnow was used to learn the models to classify the blogs. The winnow algorithm is a supervised learning algorithm that learns a linear classifier. It is similar to a perceptron, that updates the weight in every training example. The difference lies in the fact that for perceptron, the weight update is additive while for Winnow, the update is multiplicative. Considering scale, Multi-Class Real Winnow becomes much more efficient than SVM. A possible drawback could happen when the decision bounderies are non-linear. 
-
-Stylistic features included parts-of-speech tags, function words, hyperlinks, and non-dictionary words. Content features included word unigrams with high information gain. The accuracy achieved was around 80\% for gender classification and 75\% for age identification.  
-
-The work or Argamon et al.~\cite{argamon2009automatically} became the basis for the work in PAN. It is an ongoing project from CLEF with author profiling as one of its tasks. It currently has three editions. In the first edition of PAN~\cite{rangel2013overview} in 2013, the task  was age and gender profiling for English and Spanish blogs. There were a variety of methods used. One set includes content-based features such as bag of words, named entities, dictionary words, slang words, contractions, sentiment words, and emotion words. Another would be stylistic features such as frequencies, punctuations, POS, HTML use, readability measures, and other various statistics. There are also features that are n-grams based, IR-based, and collocations-based. Named entities, sentiment words, emotion words, and slang, contractions and words with character flooding were also considered. After extracting the features, the classifiers that were used were the following - decision trees, Support Vector Machines, logistic regression, Naïve Bayes, Maximum Entropy, Stochastic Gradient Descent, and random forests. Most of the submissions for this edition used decision trees, wherein a classification tree is learned by splitting the data based on information gain or gini index of the features from which the split is based on. The idea is to keep on splitting until the  instances in the leaves come from only one class. Three used Support Vector Machines wherein the features are mapped into another space and a hyperplane is fitted on the new space. The fitted hyperplane is made such that the gap between the different classes in the new space is as wide as possible. Two approaches used logistic regression, where it measures the relationship between the category and it's features by estimating the probabilities using a logistic function. This is then used to predict. One used Naïve Bayes where a probabilistic classifier is constructed using Bayes' theorem but with independence assumptions of features. Another used Maximum Entropy, which is the multivariate form of logistic regression. Another used Stochastic Gradient Descent, which is an iterative method for sum-minimizations such as that in least squares. And finally, one used Random Forest, which is an ensemble method described later in the text, where a multitude of trees is used instead of using one tree for classification. 
-
-
-The work of Lopez-Monroy in~\cite{lopez2013inaoe} was considered the winner for the task although they placed second for both English and Spanish with an accuracy of 38.13\% and 41.58\% respectively. They used second order representation based on relationships between documents and profiles. They used liblinear but did not specify which classifier was used.  
-
-The work of Meina et al.~\cite{meina2013ensemble} used collocations and placed first for English with a total accuracy of 38.94\%. They experimented on different classifiers but Random Forests gave the best result. Their final Random Forest classifier was trained on a 12-core machine with 30GB of RAM, and parameters were obtained through trial and error. The parameters include minimum samples per leaf to be equal to 5, the size of the feature set for each tree is equal to $\sqrt{n\_features}$, and the number of trees was lowered to 666 although it converges at values higher than 1000.  
-
-
-On the other hand, the work of Santosh et al. in~\cite{santosh2013author} gave a total accuracy of 42.08\% after using POS features for Spanish. They used three different kinds of features - content based, style based, and topic based. Each of the features has a classifier. Content based features in the form of ngrams and style based features in the form of ngrams of POS tags both used Support Vector Machines. Although the kernel and parameters used were not mentioned. Topic based features in the form of LDA topic model was used as features for a Maximum Entropy classifier. The results from each of the three classifiers are fed finally into a decision tree. 
+The work or Argamon et al.~\cite{argamon2009automatically} became the basis for the work in PAN. It is an ongoing project from CLEF with author profiling as one of its tasks. It currently has three editions. In the first edition of PAN~\cite{rangel2013overview} in 2013, the task  was age and gender profiling for English and Spanish blogs. There were a variety of methods used. One set includes content-based features such as bag of words, named entities, dictionary words, slang words, contractions, sentiment words, and emotion words. Another would be stylistic features such as frequencies, punctuations, POS, HTML use, readability measures, and other various statistics. There are also features that are n-grams based, IR-based, and collocations-based. Named entities, sentiment words, emotion words, and slang, contractions and words with character flooding were also considered. After extracting the features, the classifiers that were used were the following - decision trees, Support Vector Machines, logistic regression, Naïve Bayes, Maximum Entropy, Stochastic Gradient Descent, and random forests. The work of Lopez-Monroy in~\cite{lopez2013inaoe} was considered the winner for the task although they placed second for both English and Spanish with an accuracy of 38.13\% and 41.58\% respectively. They used second order representation based on relationships between documents and profiles. The work of Meina et al.~\cite{meina2013ensemble} used collocations and placed first for English with a total accuracy of 38.94\%. On the other hand, the work of Santosh et al. in~\cite{santosh2013author} gave a total accuracy of 42.08\% after using POS features for Spanish.
 
 In PAN 2014~\cite{rangel2014overview}, the task was profiling authors with text from four different sources - social media, twitter, blogs, and hotel reviews. Most of the approaches used in this edition are similar to the previous year. In~\cite{lopezusing}, the method used to represent terms in a space of profiles and then represent the documents in the space of profiles and subprofiles were built using expectation maximization clustering. This is the same method as in the previous year in~\cite{lopez2013inaoe}. In~\cite{maharjansimple}, ngrams were used with stopwords, punctuations, and emoticons retained, and then idf count was also used before placed into a classifier. Liblinear logistic regression returned with the best result. In~\cite{weren6exploring}, different features were used that were related to length (number of characters, words, sentences), information retrieval (cosine similarity, okapi BM25), and readability (Flesch-Kincaid readability, correctness, style). Another approach is to use term vector model representation as in~\cite{villenadaedalus}. For the work of Marquardt et al. in~\cite{marquardt2014age}, they used a combination of content-based features (MRC, LIWC, sentiments) and stylistic features (readability, html tags, spelling and grammatical error, emoticons, total number of posts, number of capitalized letters number of capitalized words). Classifiers also varied for this edition. There was the use of logistic regression, multinomial Naïve Bayes, liblinear, random forests, Support Vector Machines, and decision tables. The method of Lopez-Monroy in~\cite{lopezusing} gave the best result with an average accuracy of 28.95\% on all corpus-types and languages. 
-\section{Dataset and Tools}
-The dataset for the problem at hand is composed of a set of tweets for 4 different languages - English, Dutch, Italian, and Spanish. We limited the investigation to just English and decided to build one model for age classification and another model for gender classification. There were 4 categories for the age classification - 18-24, 25-34, 35-49, and 50 and above.
 
-There were 152 users for English. Each user has different number of tweets but the dataset is balanced based on gender. The table~\ref{table:TweetStats} gives the minimum, maximum, average, standard deviation, as well as the median of the number of tweets of each user, total length of tweets for each user, and the average tweet length of each user. 
+
+% OLD Related Lit
+%One of the first few works on author profiling is that of Argamon et al. in~\cite{argamon2009automatically} where texts are categorized base on gender, age, native language, and personality. For personality, only neuroticism was checked. The corpus comes from different sources. The age and gender have the same corpus taken from blog postings. The native language corpus was taken from International Corpus of Learner English. Personality was taken from essays of pyschology students from University of Texas in Austin. Two types of features were obtained: content-based features and style-based features and Bayesian Multinomial Regression was used as a classifier. Bayesian Multinomial Regression was used because it was shown to be effective for text classification problems. It's a variant of logistic regression that is used instead of naive bayes classifiers because it doesnt assume independence between features.
+%
+%Argamon et al. had some interesting results where from the gender task, they were able to achieve 76.1\% accuracy using style and content features. For age task with 3 classes, the accuracy was at 77.7\% also using style and content features. For the native language task, the classifiers were able to achieve 82.3\% using only content features. And finally, in checking for neuroticism, the highest obtained was 65.7\% using only style features. 
+%
+%There has also been some research that uses datasets collected from social media. A particular example is that of Schler et al. in~\cite{schler2006effects} where writing styles in blogs are related to age and gender. Stylistic and content features were extracted from 71,000 different blogs and a Multi-Class Real Winnow was used to learn the models to classify the blogs. The winnow algorithm is a supervised learning algorithm that learns a linear classifier. It is similar to a perceptron, that updates the weight in every training example. The difference lies in the fact that for perceptron, the weight update is additive while for Winnow, the update is multiplicative. Considering scale, Multi-Class Real Winnow becomes much more efficient than SVM. A possible drawback could happen when the decision bounderies are non-linear. 
+%
+%Stylistic features included parts-of-speech tags, function words, hyperlinks, and non-dictionary words. Content features included word unigrams with high information gain. The accuracy achieved was around 80\% for gender classification and 75\% for age identification.  
+%
+%The work or Argamon et al.~\cite{argamon2009automatically} became the basis for the work in PAN. It is an ongoing project from CLEF with author profiling as one of its tasks. It currently has three editions. In the first edition of PAN~\cite{rangel2013overview} in 2013, the task  was age and gender profiling for English and Spanish blogs. There were a variety of methods used. One set includes content-based features such as bag of words, named entities, dictionary words, slang words, contractions, sentiment words, and emotion words. Another would be stylistic features such as frequencies, punctuations, POS, HTML use, readability measures, and other various statistics. There are also features that are n-grams based, IR-based, and collocations-based. Named entities, sentiment words, emotion words, and slang, contractions and words with character flooding were also considered. After extracting the features, the classifiers that were used were the following - decision trees, Support Vector Machines, logistic regression, Naïve Bayes, Maximum Entropy, Stochastic Gradient Descent, and random forests. Most of the submissions for this edition used decision trees, wherein a classification tree is learned by splitting the data based on information gain or gini index of the features from which the split is based on. The idea is to keep on splitting until the  instances in the leaves come from only one class. Three used Support Vector Machines wherein the features are mapped into another space and a hyperplane is fitted on the new space. The fitted hyperplane is made such that the gap between the different classes in the new space is as wide as possible. Two approaches used logistic regression, where it measures the relationship between the category and it's features by estimating the probabilities using a logistic function. This is then used to predict. One used Naïve Bayes where a probabilistic classifier is constructed using Bayes' theorem but with independence assumptions of features. Another used Maximum Entropy, which is the multivariate form of logistic regression. Another used Stochastic Gradient Descent, which is an iterative method for sum-minimizations such as that in least squares. And finally, one used Random Forest, which is an ensemble method described later in the text, where a multitude of trees is used instead of using one tree for classification. 
+%
+%
+%The work of Lopez-Monroy in~\cite{lopez2013inaoe} was considered the winner for the task although they placed second for both English and Spanish with an accuracy of 38.13\% and 41.58\% respectively. They used second order representation based on relationships between documents and profiles. They used liblinear but did not specify which classifier was used.  
+%
+%The work of Meina et al.~\cite{meina2013ensemble} used collocations and placed first for English with a total accuracy of 38.94\%. They experimented on different classifiers but Random Forests gave the best result. Their final Random Forest classifier was trained on a 12-core machine with 30GB of RAM, and parameters were obtained through trial and error. The parameters include minimum samples per leaf to be equal to 5, the size of the feature set for each tree is equal to $\sqrt{n\_features}$, and the number of trees was lowered to 666 although it converges at values higher than 1000.  
+%
+%
+%On the other hand, the work of Santosh et al. in~\cite{santosh2013author} gave a total accuracy of 42.08\% after using POS features for Spanish. They used three different kinds of features - content based, style based, and topic based. Each of the features has a classifier. Content based features in the form of ngrams and style based features in the form of ngrams of POS tags both used Support Vector Machines. Although the kernel and parameters used were not mentioned. Topic based features in the form of LDA topic model was used as features for a Maximum Entropy classifier. The results from each of the three classifiers are fed finally into a decision tree. 
+%
+%In PAN 2014~\cite{rangel2014overview}, the task was profiling authors with text from four different sources - social media, twitter, blogs, and hotel reviews. Most of the approaches used in this edition are similar to the previous year. In~\cite{lopezusing}, the method used to represent terms in a space of profiles and then represent the documents in the space of profiles and subprofiles were built using expectation maximization clustering. This is the same method as in the previous year in~\cite{lopez2013inaoe}. In~\cite{maharjansimple}, ngrams were used with stopwords, punctuations, and emoticons retained, and then idf count was also used before placed into a classifier. Liblinear logistic regression returned with the best result. In~\cite{weren6exploring}, different features were used that were related to length (number of characters, words, sentences), information retrieval (cosine similarity, okapi BM25), and readability (Flesch-Kincaid readability, correctness, style). Another approach is to use term vector model representation as in~\cite{villenadaedalus}. For the work of Marquardt et al. in~\cite{marquardt2014age}, they used a combination of content-based features (MRC, LIWC, sentiments) and stylistic features (readability, html tags, spelling and grammatical error, emoticons, total number of posts, number of capitalized letters number of capitalized words). Classifiers also varied for this edition. There was the use of logistic regression, multinomial Naïve Bayes, liblinear, random forests, Support Vector Machines, and decision tables. The method of Lopez-Monroy in~\cite{lopezusing} gave the best result with an average accuracy of 28.95\% on all corpus-types and languages. 
+
+
+\section{Dataset and Tools}
+The dataset for the problem at hand is composed of a set of tweets for 4 different languages - English, Dutch, Italian, and Spanish. We limited the investigation to just English and decided to build one model for age classification and another model for gender classification. There were 4 categories for the age classification - 18-24, 25-34, 35-49, and 50 and above. There were 152 users for English. Each user has different number of tweets but the dataset is balanced based on gender. The table~\ref{table:TweetStats} gives the minimum, maximum, average, standard deviation, as well as the median of the number of tweets of each user, total length of tweets for each user, and the average tweet length of each user. 
 
 \begin{table}[!htbp]
 \centering
@@ -90,21 +100,21 @@ Finally, we also check different for three other methods. First, we want to know
 For each language, xml files from each user are read. Then the tweets taken from each user are extracted and concatenated into one line to form one training example. The examples are then transformed by putting them all in lower case. No stop words are removed. Hashtags, numbers, mentions, shares, and retweets were not processed or transformed to anything else. They were retained as is and therefore will correspond to another item in the dictionary of features. The resulting file is used for feature extraction.  The resulting file is used for feature extraction.  
 
 \subsection{Feature Extraction}
-The following set of features were extracted after preprocessing and the number of features extracted from each set is given in the table~\ref{table:numFeatures}.
+The following set of features were extracted after preprocessing. Normalized term frequency and~\textit{tfidf} both yielded 26264 different features. Text bigrams gave 104435, text trigrams with 147577, while POS unigrams gave 35 and POS bigrams gave 895.
 
-\begin{table}[!htbp]
-\setlength{\tabcolsep}{6pt}
-\setlength{\extrarowheight}{5pt}
-\centering
-\begin{tabular}{c|c|c|c|c|c|c}
-
-        & tf    & tfidf & Text  bi & Text tri & POS uni & POS bi \\ \hline
-English & 26264 & 26264 & 104435   & 147577   & 35      & 895    \\ 
-
-\end{tabular}
-\caption{Number of features extracted}
-\label{table:numFeatures}
-\end{table}
+%\begin{table}[!htbp]
+%\setlength{\tabcolsep}{6pt}
+%\setlength{\extrarowheight}{5pt}
+%\centering
+%\begin{tabular}{c|c|c|c|c|c|c}
+%
+%        & tf    & tfidf & Text  bi & Text tri & POS uni & POS bi \\ \hline
+%English & 26264 & 26264 & 104435   & 147577   & 35      & 895    \\ 
+%
+%\end{tabular}
+%\caption{Number of features extracted}
+%\label{table:numFeatures}
+%\end{table}
 
 \subsubsection{Bag-of-Words}
 
@@ -130,7 +140,7 @@ It was used among the other tests because it allows the comparison between two e
 %Therefore, if there was an experiment between two settings and the returned p-value after a Wilcoxon signed rank test yields less than 0.05, the null hypothesis is rejected. This means that the values are statistically different. If it yields a value greater than 0.05, it means that values between the two experiments are not statistically different.
 
 \subsection{Feature Reduction}
-After determining which kind of features are the most useful, which is~\textit{tfidf} from the experiment results as given in tables~\ref{table:DiffFeaturesResults} and~\ref{table:PValDiffFeaturesResults}, we then reduce the number of features by ranking the importance through information gain. To do that, classification was done using Support Vector Machines~\cite{cortes1995support} with a linear kernel, choosing C=1 as the default. But instead of using all the~\textit{tfidf} features, different number of features were tested. The number of features were ranked by either information gain or gain ratio. The results for the accuracies by varying the feature set is given in table~\ref{table:ChoosingNumFeatures} in the succeeding chapter. However, it is suffice to say that for the succeeding experiment on polynomial kernels and radial basis function kernels, the number of features selected will be 9000 and 7000 for age and gender classification respectively. The discussion on selecting the number of features is given in the succeeding chapter. 
+After determining which kind of features are the most useful, which is~\textit{tfidf} from the experiment results as given in table~\ref{table:DiffFeaturesResults}, we then reduce the number of features by ranking the importance through information gain. To do that, classification was done using Support Vector Machines~\cite{cortes1995support} with a linear kernel, choosing C=1 as the default. But instead of using all the~\textit{tfidf} features, different number of features were tested. The number of features were ranked by either information gain or gain ratio. The results for the accuracies by varying the feature set is given in table~\ref{table:ChoosingNumFeatures} in the succeeding chapter. However, it is suffice to say that for the succeeding experiment on polynomial kernels and radial basis function kernels, the number of features selected will be 9000 and 7000 for age and gender classification respectively. The discussion on selecting the number of features is given in the succeeding chapter. 
 
 %We determine the number the most number of features that gives an accuracy that is not statistically different from the accuracy given by the full number of features using Wilcoxon signed rank test~\cite{wilcoxon1945individual}. We then use that reduced number of features to test the different kernels and different parameters. 
 
@@ -175,39 +185,53 @@ Adaptive Boosting or AdaBoost is another ensemble method formulated by Freund an
 
 \section{Results and Discussion}
 \subsection{Evaluating the Effect of Feature Types on Classification}
-The numbers in boldface in table~\ref{table:DiffFeaturesResults} give the feature that gave a better accuracy result in a given type. We can see that~\textit{tfidf} gives a better accuracy than termed frequency among the bag of words features. We also see that text bigrams gives a better accuracy than text trigrams and POS bigrams give a better accuracy than the two others. Of course~\textit{tfidf} has the highest accuracy among all. 
+Table~\ref{table:DiffFeaturesResults} compares the performance of the different feature types. We can see that~\textit{tfidf} features give better results than normalized term frequency results. We also see that text bigrams gives a better accuracy than text trigrams and POS bigrams give a better accuracy than the two others. Of course~\textit{tfidf} has the highest accuracy among all. However, looking at p-values after performing Wilcoxon signed rank test, we can see that only the results for bag-of-words features are statistically different from each other. This is indicated in boldface in the table. 
 
+%The numbers in boldface in table~\ref{table:DiffFeaturesResults} give the feature that gave a better accuracy result in a given type. We can see that~\textit{tfidf} gives a better accuracy than termed frequency among the bag of words features. We also see that text bigrams gives a better accuracy than text trigrams and POS bigrams give a better accuracy than the two others. Of course~\textit{tfidf} has the highest accuracy among all. 
 
-
-\begin{table}[!htbp]
+\begin{table}[]
 \centering
-\begin{tabular}{|c|cc|cc|ccc|}
+\begin{tabular}{|l|cc|cc|ccc|}
 \hline
-\multicolumn{1}{|l|}{\multirow{2}{*}{}} & \multicolumn{2}{c|}{BoW} & \multicolumn{2}{c|}{Text Ngrams} & \multicolumn{3}{c|}{POS Ngrams}    \\ \cline{2-8} 
-\multicolumn{1}{|l|}{}                  & tf     & tfidf           & bigrams        & trigrams        & unigrams & bigrams        & uni+bi \\ \hline
-gender                                  & 0.511  & \textbf{0.683}           & 0.623          & \textbf{0.652}           & 0.659    & 0.659          & \textbf{0.660}  \\ 
-age                                     & 0.395  & \textbf{0.691}           & \textbf{0.638}          & 0.553           & 0.579    & \textbf{0.611}          & 0.593  \\ \hline
-average                                 & 0.453  & \textbf{0.687}  & \textbf{0.631}          & 0.602           & 0.619    & \textbf{0.635} & 0.626  \\ \hline
+\multirow{2}{*}{}            & \multicolumn{2}{c|}{BoW} & \multicolumn{2}{c|}{Text Ngrams} & \multicolumn{3}{c|}{POS Ngrams} \\ %\cline{2-8} 
+                             & tf     & tfidf           & bigrams        & trigrams        & unigrams   & bigrams  & uni+bi  \\ \hline
+\multicolumn{1}{|c|}{gender} & 0.511  & \textbf{0.683}  & 0.623          & 0.652           & 0.659      & 0.659    & 0.660   \\ %\hline
+\multicolumn{1}{|c|}{age}    & 0.395  & \textbf{0.691}  & 0.638          & 0.553           & 0.579      & 0.611    & 0.593   \\ \hline
 \end{tabular}
 \caption{Accuracy results for age and gender classification using different types of features. Highest accuracy is given in bold face.}
 \label{table:DiffFeaturesResults}
 \end{table}
 
-However, looking at the p-values in table~\ref{table:PValDiffFeaturesResults}, we can see a different story. The values in boldface are those less than 0.05 and are therefore and indicator that the perceived accuracy are statistically different from the others. In this case, the accuracy results from~\textit{tfidf} are statistically different from normalized term frequency. However, those from text ngrams and POS ngrams are not statistically different from each other. 
 
-\begin{table}[!htbp]
-\centering
-\begin{tabular}{|l|c|c|ccc|}
-\hline
-\multirow{2}{*}{}            & BoW             & Text Ngrams & \multicolumn{3}{c|}{POS ngrams} \\ \cline{2-6} 
-                             & tf vs tfidf     & bi vs tri   & 1v2       & 1v3      & 2v3      \\ \hline
-\multicolumn{1}{|c|}{gender} & \textbf{0.0019} & 0.1620      & 0.4057    & 0.7624   & 0.7624   \\ \hline
-\multicolumn{1}{|c|}{age}    & \textbf{0.0002} & 0.1041      & 0.3258    & 0.9097   & 0.7337   \\ \hline
-\end{tabular}
-\caption{Table of p-values using Wilcoxon signed rank analysis when comparing cross
-validation accuracies between among bag of words features, text ngrams features, and among POS ngrams features.}
-\label{table:PValDiffFeaturesResults}
-\end{table}
+%\begin{table}[!htbp]
+%\centering
+%\begin{tabular}{|c|cc|cc|ccc|}
+%\hline
+%\multicolumn{1}{|l|}{\multirow{2}{*}{}} & \multicolumn{2}{c|}{BoW} & \multicolumn{2}{c|}{Text Ngrams} & \multicolumn{3}{c|}{POS Ngrams}    \\ \cline{2-8} 
+%\multicolumn{1}{|l|}{}                  & tf     & tfidf           & bigrams        & trigrams        & unigrams & bigrams        & uni+bi \\ \hline
+%gender                                  & 0.511  & \textbf{0.683}           & 0.623          & \textbf{0.652}           & 0.659    & 0.659          & \textbf{0.660}  \\ 
+%age                                     & 0.395  & \textbf{0.691}           & \textbf{0.638}          & 0.553           & 0.579    & \textbf{0.611}          & 0.593  \\ \hline
+%average                                 & 0.453  & \textbf{0.687}  & \textbf{0.631}          & 0.602           & 0.619    & \textbf{0.635} & 0.626  \\ \hline
+%\end{tabular}
+%\caption{Accuracy results for age and gender classification using different types of features. Highest accuracy is given in bold face.}
+%\label{table:DiffFeaturesResults}
+%\end{table}
+
+%However, looking at the p-values in table~\ref{table:PValDiffFeaturesResults}, we can see a different story. The values in boldface are those less than 0.05 and are therefore and indicator that the perceived accuracy are statistically different from the others. In this case, the accuracy results from~\textit{tfidf} are statistically different from normalized term frequency. However, those from text ngrams and POS ngrams are not statistically different from each other. 
+
+%\begin{table}[!htbp]
+%\centering
+%\begin{tabular}{|l|c|c|ccc|}
+%\hline
+%\multirow{2}{*}{}            & BoW             & Text Ngrams & \multicolumn{3}{c|}{POS ngrams} \\ %\cline{2-6} 
+%                             & tf vs tfidf     & bi vs tri   & 1v2       & 1v3      & 2v3      \\ \hline
+%\multicolumn{1}{|c|}{gender} & \textbf{0.0019} & 0.1620      & 0.4057    & 0.7624   & 0.7624   \\ %\hline
+%\multicolumn{1}{|c|}{age}    & \textbf{0.0002} & 0.1041      & 0.3258    & 0.9097   & 0.7337   \\ \hline
+%\end{tabular}
+%\caption{Table of p-values using Wilcoxon signed rank analysis when comparing cross
+%validation accuracies between among bag of words features, text ngrams features, and among POS ngrams features.}
+%\label{table:PValDiffFeaturesResults}
+%\end{table}
 
 \subsection{Feature Reduction}
 We then chose to just use~\textit{tfidf} as the set of features for classification. However, the set is still big. And we reduced this even further by ranking the features by information gain and gain ratio and try to reduce the feature set from there.  
@@ -240,50 +264,71 @@ The results for feature reduction are given in table~\ref{table:ChoosingNumFeatu
 
 
 \subsection{Different Kernels}
-The results for age classification using support vector machines with polynomial kernel is given by table~\ref{table:SVMPolyAge}. The highest accuracy obtained was 80.92\%. This was obtained from three different settings, degree 3 with C to be either 10, 1000, 10000. However, checking on Wilcoxon signed rank test~\cite{wilcoxon1945individual}, these results are not statistically significant to 80.25\% given by settings with degree 2 and C to be either 10, 1000, 10000. These results are also not statistically significant against 75\% with degree 3 and C to be 1. The results shown in boldface are the highest accuracies that are not statistically different from each other. 
+The results for age classification using support vector machines with polynomial kernel is given by table~\ref{table:SVMPolyAndRBFAge}. The highest accuracy obtained was 80.92\%. This was obtained from three different settings, degree 3 with C to be either 10, 1000, 10000. However, checking on Wilcoxon signed rank test~\cite{wilcoxon1945individual}, these results are not statistically significant to 80.25\% given by settings with degree 2 and C to be either 10, 1000, 10000. These results are also not statistically significant against 75\% with degree 3 and C to be 1. The results shown in boldface are the highest accuracies that are not statistically different from each other. 
 
+% Please add the following required packages to your document preamble:
+% \usepackage{multirow}
 \begin{table}[!htbp]
 \centering
-\begin{tabular}{|c|ccc|}
-\hline
-\multirow{2}{*}{C} & \multicolumn{3}{c|}{degree}       \\ %\cline{2-4} 
-                   & 1      & 2      & 3               \\ \hline
-0.0001             & 0.6321 & 0.6192 & 0.5121          \\ %\hline
-0.001              & 0.6321 & 0.6192 & 0.5121          \\ %\hline
-0.1                & 0.6321 & 0.6254 & 0.5992          \\ %\hline
-1                  & 0.6321 & 0.7104 & \textbf{0.7500} \\ %\hline
-10                 & 0.6321 & \textbf{0.8025} & \textbf{0.8092} \\ %\hline
-1000               & 0.6321 & \textbf{0.8025} & \textbf{0.8092} \\ %\hline
-10000              & 0.6321 & \textbf{0.8025} & \textbf{0.8092} \\ \hline
+\begin{tabular}{|c|lll|l|lllllll|}
+\cline{1-4} \cline{6-12}
+\multirow{3}{*}{C} & \multicolumn{3}{c|}{polynomial}                                                &                       & \multicolumn{7}{c|}{radial basis function}                                                                                                                                                      \\ \cline{2-4} \cline{6-12} 
+                   & \multicolumn{3}{c|}{degree}                                              &                       & \multicolumn{7}{c|}{gamma}                                                                                                                                                                      \\ %\cline{2-4} \cline{6-12} 
+                   & \multicolumn{1}{c}{1} & \multicolumn{1}{c}{2} & \multicolumn{1}{c|}{3} & \multicolumn{1}{c|}{} & \multicolumn{1}{c}{0.0001} & \multicolumn{1}{c}{0.001} & \multicolumn{1}{c}{0.1} & \multicolumn{1}{c}{1} & \multicolumn{1}{c}{10} & \multicolumn{1}{c}{1000} & \multicolumn{1}{c|}{10000} \\ \cline{1-4} \cline{6-12} 
+0.0001             & 0.6321                 & 0.6192                 & 0.5121                 &                       & 0.3950                      & 0.3950                     & 0.3950                   & 0.3950                 & 0.3950                  & 0.3950                    & 0.3950                     \\ %\cline{1-4} \cline{6-12} 
+0.001              & 0.6321                 & 0.6192                 & 0.5121                 &                       & 0.3950                      & 0.3950                     & 0.3950                   & 0.3950                 & 0.3950                  & 0.3950                    & 0.3950                     \\ %\cline{1-4} \cline{6-12} 
+0.1                & 0.6321                 & 0.6254                 & 0.5992                 &                       & 0.3950                      & 0.3950                     & 0.3950                   & 0.4746                 & 0.3950                  & 0.3950                    & 0.3950                     \\ %\cline{1-4} \cline{6-12} 
+1                  & 0.6321                 & 0.7104                 & \textbf{0.7500}        &                       & 0.3950                      & 0.3950                     & 0.6054                   & \textbf{0.6517}        & 0.5933                  & 0.3950                    & 0.3950                     \\ %\cline{1-4} \cline{6-12} 
+10                 & 0.6321                 & \textbf{0.8025}        & \textbf{0.8092}        &                       & 0.3950                      & 0.3950                     & \textbf{0.6846}          & \textbf{0.8025}        & 0.6196                  & 0.3950                    & 0.3950                     \\ %\cline{1-4} \cline{6-12} 
+1000               & 0.6321                 & \textbf{0.8025}        & \textbf{0.8092}        &                       & 0.6188                      & \textbf{0.6971}            & \textbf{0.8025}          & \textbf{0.8025}        & 0.6196                  & 0.3950                    & 0.3950                     \\ %\cline{1-4} \cline{6-12} 
+10000              & 0.6321                 & \textbf{0.8025}        & \textbf{0.8092}        &                       & 0.6971                      & \textbf{0.8092}            & \textbf{0.8025}          & \textbf{0.8025}        & 0.6196                  & 0.3950                    & 0.3950                     \\ \cline{1-4} \cline{6-12} 
 \end{tabular}
-\caption{SVM with polynomial kernel on age classication.}
-%Accuracy results of using SVM with polynomial kernel on age classication task with different C and degree parameters using top 9000 informative features ranked by information gain.
-\label{table:SVMPolyAge}
+\caption{SVM with polynomial and radial basis function kernel on age classication.}
+\label{table:SVMPolyAndRBFAge}
 \end{table}
 
-The results for age classification using support vector machines with radial basis function kernel is given by table~\ref{table:SVMRBFAge}. Results show that the highest achieved accuracy was 80.92\%. It was obtained from the kernel with gamma to be 0.001 and with a C to be 10000. This wasnt statistically different from the settings that gave 80.25\%, 69.71\%, 68.46\%, and 65.17\% which are all shown in boldface. 
+%\begin{table}[!htbp]
+%\centering
+%\begin{tabular}{|c|ccc|}
+%\hline
+%\multirow{2}{*}{C} & \multicolumn{3}{c|}{degree}       \\ %\cline{2-4} 
+%                   & 1      & 2      & 3               \\ \hline
+%0.0001             & 0.6321 & 0.6192 & 0.5121          \\ %\hline
+%0.001              & 0.6321 & 0.6192 & 0.5121          \\ %\hline
+%0.1                & 0.6321 & 0.6254 & 0.5992          \\ %\hline
+%1                  & 0.6321 & 0.7104 & \textbf{0.7500} \\ %\hline
+%10                 & 0.6321 & \textbf{0.8025} & \textbf{0.8092} \\ %\hline
+%1000               & 0.6321 & \textbf{0.8025} & \textbf{0.8092} \\ %\hline
+%10000              & 0.6321 & \textbf{0.8025} & \textbf{0.8092} \\ \hline
+%\end{tabular}
+%\caption{SVM with polynomial kernel on age classication.}
+%%Accuracy results of using SVM with polynomial kernel on age classication task with different C and degree parameters using top 9000 informative features ranked by information gain.
+%\label{table:SVMPolyAge}
+%\end{table}
+
+The results for age classification using support vector machines with radial basis function kernel is also given by table~\ref{table:SVMPolyAndRBFAge}. Results show that the highest achieved accuracy was 80.92\%. It was obtained from the kernel with gamma to be 0.001 and with a C to be 10000. This wasnt statistically different from the settings that gave 80.25\%, 69.71\%, 68.46\%, and 65.17\% which are all shown in boldface. 
 
 Comparing the two different kernels for age classification including different parameters, the settings settled for would be with the polynomial kernel of degree 3 with $C$ equal to 10.
 
 
-\begin{table}[!htbp]
-\centering
-\begin{tabular}{|c|ccccccc|}
-\hline
-\multirow{2}{*}{C} & \multicolumn{7}{c|}{gamma}                                                                                                                                                                          \\ %\cline{2-8} 
-                   & 0.0001                      & 0.001                       & 0.1                         & \multicolumn{1}{c}{1} & \multicolumn{1}{c}{10} & \multicolumn{1}{c}{1000} & \multicolumn{1}{c|}{10000} \\ \hline
-0.0001             & 0.3950                      & 0.3950                      & 0.3950                      & 0.3950                 & 0.3950                  & 0.3950                    & 0.3950                     \\ %\hline
-0.001              & \multicolumn{1}{c}{0.3950} & \multicolumn{1}{c}{0.3950} & \multicolumn{1}{c}{0.3950} & 0.3950                 & 0.3950                  & 0.3950                    & 0.3950                     \\ %\hline
-0.1                & \multicolumn{1}{c}{0.3950} & \multicolumn{1}{c}{0.3950} & \multicolumn{1}{c}{0.3950} & 0.4746                 & 0.3950                  & 0.3950                    & 0.3950                     \\ %\hline
-1                  & 0.3950                      & 0.3950                      & 0.6054                      & \textbf{0.6517}        & 0.5933                  & 0.3950                    & 0.3950                     \\ %\hline
-10                 & 0.3950                      & 0.3950                      & \textbf{0.6846}             & \textbf{0.8025}        & 0.6196                  & 0.3950                    & 0.3950                     \\ %\hline
-1000               & 0.6188                      & \textbf{0.6971}             & \textbf{0.8025}             & \textbf{0.8025}        & 0.6196                  & 0.3950                    & 0.3950                     \\ %\hline
-10000              & 0.6971                      & \textbf{0.8092}             & \textbf{0.8025}             & \textbf{0.8025}        & 0.6196                  & 0.3950                    & 0.3950                     \\ \hline
-\end{tabular}
-\caption{SVM with radial basis function kernel for age classification}
-%Accuracy results of using SVM with radial basis function kernel for age classification with different C and gamma parameters using top 9000 informative features ranked by information gain.
-\label{table:SVMRBFAge}
-\end{table}
+%\begin{table}[!htbp]
+%\centering
+%\begin{tabular}{|c|ccccccc|}
+%\hline
+%\multirow{2}{*}{C} & \multicolumn{7}{c|}{gamma}                                                                                                                                                                          \\ %\cline{2-8} 
+%                   & 0.0001                      & 0.001                       & 0.1                         & \multicolumn{1}{c}{1} & \multicolumn{1}{c}{10} & \multicolumn{1}{c}{1000} & \multicolumn{1}{c|}{10000} \\ \hline
+%0.0001             & 0.3950                      & 0.3950                      & 0.3950                      & 0.3950                 & 0.3950                  & 0.3950                    & 0.3950                     \\ %\hline
+%0.001              & \multicolumn{1}{c}{0.3950} & \multicolumn{1}{c}{0.3950} & \multicolumn{1}{c}{0.3950} & 0.3950                 & 0.3950                  & 0.3950                    & 0.3950                     \\ %\hline
+%0.1                & \multicolumn{1}{c}{0.3950} & \multicolumn{1}{c}{0.3950} & \multicolumn{1}{c}{0.3950} & 0.4746                 & 0.3950                  & 0.3950                    & 0.3950                     \\ %\hline
+%1                  & 0.3950                      & 0.3950                      & 0.6054                      & \textbf{0.6517}        & 0.5933                  & 0.3950                    & 0.3950                     \\ %\hline
+%10                 & 0.3950                      & 0.3950                      & \textbf{0.6846}             & \textbf{0.8025}        & 0.6196                  & 0.3950                    & 0.3950                     \\ %\hline
+%1000               & 0.6188                      & \textbf{0.6971}             & \textbf{0.8025}             & \textbf{0.8025}        & 0.6196                  & 0.3950                    & 0.3950                     \\ %\hline
+%10000              & 0.6971                      & \textbf{0.8092}             & \textbf{0.8025}             & \textbf{0.8025}        & 0.6196                  & 0.3950                    & 0.3950                     \\ \hline
+%\end{tabular}
+%\caption{SVM with radial basis function kernel for age classification}
+%%Accuracy results of using SVM with radial basis function kernel for age classification with different C and gamma parameters using top 9000 informative features ranked by information gain.
+%\label{table:SVMRBFAge}
+%\end{table}
 
   
  
@@ -294,21 +339,19 @@ The results for gender classification using support vector machines with radial 
 
 Comparing the two different kernels for gender classification including different parameters, the settings settled for would be with the radial basis function kernel with gamma equal to 1 and $C$ equal to 10.  
 
-% Please add the following required packages to your document preamble:
-% \usepackage{multirow}
 \begin{table}[!htbp]
 \centering
-\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|}
+\begin{tabular}{|c|ccc|c|ccccccc|}
 \cline{1-4} \cline{6-12}
 \multirow{3}{*}{C} & \multicolumn{3}{c|}{polynomial}            &  & \multicolumn{7}{c|}{radial basis function}                                              \\ \cline{2-4} \cline{6-12} 
-                   & \multicolumn{3}{c|}{degree}                &  & \multicolumn{7}{c|}{gamma}                                                              \\ \cline{2-4} \cline{6-12} 
+                   & \multicolumn{3}{c|}{degree}                &  & \multicolumn{7}{c|}{gamma}                                                              \\ %\cline{2-4} \cline{6-12} 
                    & 1      & 2               & 3               &  & 0.0001 & 0.001           & 0.1             & 1               & 10     & 1000   & 10000  \\ \cline{1-4} \cline{6-12} 
-0.0001             & 0.6300 & 0.4983          & 0.4733          &  & 0.5233 & 0.5233          & 0.5233          & 0.5171          & 0.4921 & 0.5171 & 0.4733 \\ \cline{1-4} \cline{6-12} 
-0.001              & 0.6300 & 0.4983          & 0.4733          &  & 0.5233 & 0.5233          & 0.5233          & 0.5171          & 0.4921 & 0.5171 & 0.4733 \\ \cline{1-4} \cline{6-12} 
-0.1                & 0.6300 & 0.5233          & 0.4733          &  & 0.5233 & 0.5233          & 0.5233          & 0.5171          & 0.4921 & 0.5171 & 0.4733 \\ \cline{1-4} \cline{6-12} 
-1                  & 0.6300 & 0.6367          & \textbf{0.7025} &  & 0.5233 & 0.5233          & 0.5233          & 0.6167          & 0.6629 & 0.4796 & 0.4733 \\ \cline{1-4} \cline{6-12} 
-10                 & 0.6300 & \textbf{0.7954} & \textbf{0.7954} &  & 0.5233 & 0.5233          & 0.6238          & \textbf{0.8079} & 0.7025 & 0.4796 & 0.4733 \\ \cline{1-4} \cline{6-12} 
-1000               & 0.6300 & \textbf{0.7954} & \textbf{0.7954} &  & 0.5233 & 0.6367          & \textbf{0.8021} & \textbf{0.8013} & 0.7025 & 0.4796 & 0.4733 \\ \cline{1-4} \cline{6-12} 
+0.0001             & 0.6300 & 0.4983          & 0.4733          &  & 0.5233 & 0.5233          & 0.5233          & 0.5171          & 0.4921 & 0.5171 & 0.4733 \\ %\cline{1-4} %\cline{6-12} 
+0.001              & 0.6300 & 0.4983          & 0.4733          &  & 0.5233 & 0.5233          & 0.5233          & 0.5171          & 0.4921 & 0.5171 & 0.4733 \\ %\cline{1-4} %\cline{6-12} 
+0.1                & 0.6300 & 0.5233          & 0.4733          &  & 0.5233 & 0.5233          & 0.5233          & 0.5171          & 0.4921 & 0.5171 & 0.4733 \\ %\cline{1-4} %\cline{6-12} 
+1                  & 0.6300 & 0.6367          & \textbf{0.7025} &  & 0.5233 & 0.5233          & 0.5233          & 0.6167          & 0.6629 & 0.4796 & 0.4733 \\ %\cline{1-4} %\cline{6-12} 
+10                 & 0.6300 & \textbf{0.7954} & \textbf{0.7954} &  & 0.5233 & 0.5233          & 0.6238          & \textbf{0.8079} & 0.7025 & 0.4796 & 0.4733 \\ %\cline{1-4} %\cline{6-12} 
+1000               & 0.6300 & \textbf{0.7954} & \textbf{0.7954} &  & 0.5233 & 0.6367          & \textbf{0.8021} & \textbf{0.8013} & 0.7025 & 0.4796 & 0.4733 \\ %\cline{1-4} %\cline{6-12} 
 10000              & 0.6300 & \textbf{0.7954} & \textbf{0.7954} &  & 0.6367 & \textbf{0.7954} & \textbf{0.8021} & \textbf{0.8013} & 0.7025 & 0.4796 & 0.4733 \\ \cline{1-4} \cline{6-12} 
 \end{tabular}
 \caption{Accuracy results of using SVM with polynomial kernel and radial basis function kernel for gender classification with different C, degree, and gamma parameters using the top 7000 informative features ranked by information gain.}
@@ -360,19 +403,21 @@ Comparing the two different kernels for gender classification including differen
 
 
 \subsection{String Substitution}
-Comparisons between the the best from previous parameter tuning experiments and that where links and hashtags were substituted with a different string tag is shown in table~\ref{table:StringSub}. The performance drops when there's string substitution even while using the same optimal parameters for the classifier obtained from previous experiments. Optimal parameters means using polynomial kernel with degree 3 and $C$ to be 10 in age classification, while using radial basis function with gamma to be 1 and $C$ to be 10 for gender classification. However, the results are not statistically different. 
+Comparisons were also performed between the the best from previous parameter tuning experiments and that where links and hashtags were substituted with a different string tag. The performance drops when there's string substitution even while using the same optimal parameters for the classifier obtained from previous experiments. Optimal parameters means using polynomial kernel with degree 3 and $C$ to be 10 in age classification, while using radial basis function with gamma to be 1 and $C$ to be 10 for gender classification. For age classification using string substitution, the accuracy is 78.92\% as compared to 80.92\% from the best from previous experiments. For gender classification using string substitution, the accuracy is 74.42\% as compared to 80.70\% from the best from previous experiments. However, the results are not statistically different.
 
-\begin{table}[!htbp]
-\centering
-\begin{tabular}{|c|cc|}
-\hline
-Task   & String Sub & Best from Prev Expts \\ \hline
-Age    & 0.7892     & \textbf{0.8092}               \\ %\hline
-Gender & 0.7442     & \textbf{0.8079}               \\ \hline
-\end{tabular}
-\caption{Comparison between the best accuracy for age and gender classification from previous experiments against a classifier trained with links and hashtags string substitution.}
-\label{table:StringSub}
-\end{table}
+%Comparisons between the the best from previous parameter tuning experiments and that where links and hashtags were substituted with a different string tag is shown in table~\ref{table:StringSub}. The performance drops when there's string substitution even while using the same optimal parameters for the classifier obtained from previous experiments. Optimal parameters means using polynomial kernel with degree 3 and $C$ to be 10 in age classification, while using radial basis function with gamma to be 1 and $C$ to be 10 for gender classification. However, the results are not statistically different. 
+
+%\begin{table}[!htbp]
+%\centering
+%\begin{tabular}{|c|cc|}
+%\hline
+%Task   & String Sub & Best from Prev Expts \\ \hline
+%Age    & 0.7892     & \textbf{0.8092}               \\ %\hline
+%Gender & 0.7442     & \textbf{0.8079}               \\ \hline
+%\end{tabular}
+%\caption{Comparison between the best accuracy for age and gender classification from previous experiments against a classifier trained with links and hashtags string substitution.}
+%\label{table:StringSub}
+%\end{table}
 
 
 %\begin{table}[!htbp]
@@ -392,19 +437,21 @@ Gender & 0.7442     & \textbf{0.8079}               \\ \hline
 
 
 \subsection{Using Information from Other Class}
-Comparisons between the the best from previous parameter tuning experiments and another method where the training set features is augmented by the information of the other class is given by table~\ref{table:WithPriors}. We can see that age classification with features augmented with gender classification results has 2\% increased accuracy but it is not statistically different. For gender classification, the results are almost the same and are also not statistically different. Optimal parameters for age classification uses a polynomial kernel with degree 3 and $C$ to be 10, while gender classification uses radial basis function with gamma to be 1 and $C$ to be 10.
+Comparisons were also performed between the the best from previous parameter tuning experiments and another method where the training set features is augmented by the information of the other class. For age classification, the accuracy result using features augmented with the gender information gives 82.92\% while the best from previous experiments gives 80.79\%. It's a difference of about 2\%, however the difference is not statistically different. For gender classification, the results are almost the same with the augmented set giving 80.21\% while the best from previous experiments give 80.79\%, with the difference also not statistically significant. Optimal parameters for age classification uses a polynomial kernel with degree 3 and $C$ to be 10, while gender classification uses radial basis function with gamma to be 1 and $C$ to be 10.
 
-\begin{table}[!htbp]
-\centering
-\begin{tabular}{|c|cc|}
-\hline
-Task   & Augmented & Best-from-Prev-Expts \\ \hline
-Age    & \textbf{0.8292}     & 0.8092               \\ 
-Gender & 0.8021     & \textbf{0.8079}               \\ \hline
-\end{tabular}
-\caption{Comparison between the best accuracy for age and gender classification from previous experiments against a classifier trained with a feature set added with the information of the other class.}
-\label{table:WithPriors}
-\end{table}
+%Comparisons between the the best from previous parameter tuning experiments and another method where the training set features is augmented by the information of the other class is given by table~\ref{table:WithPriors}. We can see that age classification with features augmented with gender classification results has 2\% increased accuracy but it is not statistically different. For gender classification, the results are almost the same and are also not statistically different. Optimal parameters for age classification uses a polynomial kernel with degree 3 and $C$ to be 10, while gender classification uses radial basis function with gamma to be 1 and $C$ to be 10.
+
+%\begin{table}[!htbp]
+%\centering
+%\begin{tabular}{|c|cc|}
+%\hline
+%Task   & Augmented & Best-from-Prev-Expts \\ \hline
+%Age    & \textbf{0.8292}     & 0.8092               \\ 
+%Gender & 0.8021     & \textbf{0.8079}               \\ \hline
+%\end{tabular}
+%\caption{Comparison between the best accuracy for age and gender classification from previous experiments against a classifier trained with a feature set added with the information of the other class.}
+%\label{table:WithPriors}
+%\end{table}
 
 
 %\begin{table}[!htbp]
