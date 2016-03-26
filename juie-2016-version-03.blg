@@ -1,0 +1,83 @@
+This is BibTeX, Version 0.99d (TeX Live 2013/Debian)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: juie-2016-version-03.aux
+The style file: plain.bst
+Database file #1: citations.bib
+Repeated entry---line 136 of file citations.bib
+ : @inproceedings{schmid1994probabilistic
+ :                                       ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 183 of file citations.bib
+ : %@inproceedings{rangel:2015
+ :                            ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 196 of file citations.bib
+ : %@inproceedings{rangel:2015
+ :                            ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 213 of file citations.bib
+ : %@proceedings{rangel:2015
+ :                          ,
+I'm skipping whatever remains of this entry
+You're missing a field name---line 225 of file citations.bib
+ : 
+ : %  title={Overview of the 3nd Author Profiling Task at PAN 2015},
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+Repeated entry---line 279 of file citations.bib
+ : @inproceedings{schler2006effects
+ :                                 ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 326 of file citations.bib
+ : @inproceedings{schmid1994probabilistic
+ :                                       ,
+I'm skipping whatever remains of this entry
+Warning--empty journal in lopezusing
+Warning--empty year in lopezusing
+Warning--empty journal in maharjansimple
+Warning--empty year in maharjansimple
+Warning--empty journal in villenadaedalus
+Warning--empty year in villenadaedalus
+Warning--empty year in weren6exploring
+You've used 19 entries,
+            2118 wiz_defined-function locations,
+            601 strings with 7820 characters,
+and the built_in function-call counts, 7403 in all, are:
+= -- 679
+> -- 488
+< -- 6
++ -- 193
+- -- 172
+* -- 569
+:= -- 1266
+add.period$ -- 57
+call.type$ -- 19
+change.case$ -- 141
+chr.to.int$ -- 0
+cite$ -- 26
+duplicate$ -- 252
+empty$ -- 487
+format.name$ -- 172
+if$ -- 1490
+int.to.chr$ -- 0
+int.to.str$ -- 19
+missing$ -- 19
+newline$ -- 95
+num.names$ -- 40
+pop$ -- 163
+preamble$ -- 1
+purify$ -- 122
+quote$ -- 0
+skip$ -- 173
+stack$ -- 0
+substring$ -- 331
+swap$ -- 56
+text.length$ -- 6
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 76
+warning$ -- 7
+while$ -- 61
+width$ -- 21
+write$ -- 196
+(There were 7 error messages)
